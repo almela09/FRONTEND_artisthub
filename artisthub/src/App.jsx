@@ -1,24 +1,37 @@
-import { useState } from 'react'
+
+// import './App.css'
+// import { Navbar } from './components/Navbar/Navbar'
+// import { Body } from './pages/Body/Body'
+// import { BrowserRouter as Router } from 'react-router-dom';
+// function App() {
+//   return (
+//     <Router>
+//       <div>
+//         <Body/>
+//         <Navbar/>
+//       </div>
+//     </Router>
+//   )
+// }
+// export default App;
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css'
 import { Navbar } from './components/Navbar/Navbar'
-import { Login } from './pages/Login/Login'
-import { Register } from './pages/Register/Register'
-import { Profile } from './pages/Profile/Profile'
-import { Postcard } from './components/Postcard/Postcard'
+import { Body } from './pages/Body/Body'
+import { store } from './app/store.js'; 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-    
-     <Navbar/>
-     {/* <Login/> */}
-     {/* <Register/> */}
-     {/* <Profile/> */}
-     <Postcard/>
-    </>
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Body/>
+          <Navbar/>
+        </div>
+      </Router>
+    </Provider>
   )
 }
 
-export default App
+export default App;
