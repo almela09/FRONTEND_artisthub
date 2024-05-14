@@ -6,8 +6,8 @@ export const Login = () => {
           {/* Left: Image */}
           <div className="w-1/2 h-screen hidden lg:block">
             <img
-              src="https://i.pinimg.com/originals/11/0c/cf/110ccf3e7614ae0d56e806e8668f98f8.jpg"
-              alt="Placeholder Image"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Sandro_Botticelli_069.jpg/800px-Sandro_Botticelli_069.jpg"
+              alt="Boticelli Image"
               className="object-cover w-full h-full"
             />
           </div>
@@ -54,7 +54,7 @@ export const Login = () => {
               {/* Login Button */}
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
+                className="bg-blue-600 hover:bg--600 text-white font-semibold rounded-md py-2 px-4 w-full"
               >
                 Login
               </button>
