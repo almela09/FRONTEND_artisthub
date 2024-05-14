@@ -132,6 +132,24 @@ export const Profile = () => {
                 likes={42}
                 comments={3}
               />
+               <Post
+                username="Paula"
+                timeAgo="2 hours ago"
+                message="Otro dibujito"
+                hashtags={["Draw", "ilustration"]}
+                imageUrl="https://placekitten.com/450/500"
+                likes={42}
+                comments={3}
+              />
+               <Post
+                username="Paula"
+                timeAgo="2 hours ago"
+                message="Otro dibujito"
+                hashtags={["Draw", "ilustration"]}
+                imageUrl="https://placekitten.com/450/500"
+                likes={42}
+                comments={3}
+              />
             </div>
           </div>
         </div>

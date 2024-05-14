@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar/Navbar'
 import { Login } from './pages/Login/Login'
 import { Register } from './pages/Register/Register'
 import { Profile } from './pages/Profile/Profile'
+import { Postcard } from './components/Postcard/Postcard'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,7 +15,8 @@ function App() {
      <Navbar/>
      {/* <Login/> */}
      {/* <Register/> */}
-     <Profile/>
+     {/* <Profile/> */}
+     <Postcard/>
     </>
   )
 }
