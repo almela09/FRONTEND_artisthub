@@ -6,7 +6,7 @@ export const Navbar = ({ path, title }) => {
     <nav class="container mx-auto px-6 py-3">
       <div class="flex items-center justify-between">
         <div class="text-white font-bold text-xl">
-          <a href="#">Artisthub</a>
+          <a href="#">Artist/hub</a>
         </div>
         <div class="hidden md:block">
           <ul class="flex items-center space-x-8">
