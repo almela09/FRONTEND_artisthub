@@ -52,7 +52,9 @@ export const Login = () => {
         <h1 className="text-2xl font-semibold mb-4">Login</h1>
         <form onSubmit={login}>
           <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-600">Email</label>
+            <label htmlFor="username" className="block text-gray-600">
+              Email
+            </label>
             <input
               type="text"
               id="username"
@@ -64,7 +66,9 @@ export const Login = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-600">Password</label>
+            <label htmlFor="password" className="block text-gray-600">
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -82,10 +86,14 @@ export const Login = () => {
               name="remember"
               className="text-blue-500"
             />
-            <label htmlFor="remember" className="text-gray-600 ml-2">Remember Me</label>
+            <label htmlFor="remember" className="text-gray-600 ml-2">
+              Remember Me
+            </label>
           </div>
           <div className="mb-6 text-blue-500">
-            <a href="#" className="hover:underline">Forgot Password?</a>
+            <a href="#" className="hover:underline">
+              Forgot Password?
+            </a>
           </div>
           <button
             type="submit"
@@ -95,7 +103,9 @@ export const Login = () => {
           </button>
         </form>
         <div className="mt-6 text-blue-500 text-center">
-          <a href="#" className="hover:underline">Sign up Here</a>
+          <a href="#" className="hover:underline">
+            Sign up Here
+          </a>
         </div>
       </div>
     </div>
