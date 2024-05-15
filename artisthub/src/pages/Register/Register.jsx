@@ -284,7 +284,7 @@ export const Register = () => {
       {/* Left: Image */}
       <div className="w-1/2 h-screen hidden lg:block">
         <img
-          src="https://i.pinimg.com/originals/c4/2b/bc/c42bbcec29cf1a0345bbe3a573b9b334.jpg"
+          src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Sandro_Botticelli_066.jpg"
           alt="Boticelli Image"
           className="object-cover w-full h-full"
         />
@@ -399,7 +399,7 @@ export const Register = () => {
             ) : (
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
+                className="bg-black hover:bg-green-600 text-white font-semibold rounded-md py-2 px-4 w-full"
               >
                 Register
               </button>
