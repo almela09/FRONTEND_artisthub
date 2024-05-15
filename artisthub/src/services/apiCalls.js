@@ -32,3 +32,22 @@ export const LoginUser = async (user) => {
     }
   
   }
+
+export const getMyProfile = async (token) => {
+    try {
+      const response = await axios.get(`${url}user/profile`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error('Failed to fetch profile');
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
