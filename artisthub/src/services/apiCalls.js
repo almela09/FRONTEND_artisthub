@@ -33,7 +33,7 @@ export const LoginUser = async (user) => {
   
   }
 
-export const getMyProfile = async (token) => {
+  export const getMyProfile = async (token) => {
     try {
       const response = await axios.get(`${url}user/profile`, {
         headers: {
@@ -51,3 +51,54 @@ export const getMyProfile = async (token) => {
       throw error;
     }
   };
+
+// export const updateUserProfile = async (userId, userData, token, imageFile) => {
+//     const formData = new FormData();
+//     formData.append('name', userData.name);
+//     formData.append('nick', userData.nick);
+//     formData.append('biography', userData.biography);
+//     formData.append('socialNetwork', userData.socialNetwork);
+  
+//     if (imageFile) {
+//       formData.append('image', imageFile);
+//     }
+  
+//     try {
+//       const response = await axios.put(`${url}user/${userId}`, formData, {
+//         headers: {
+//           'Authorization': `Bearer ${token}`,
+//           'Content-Type': 'multipart/form-data'
+//         }
+//       });
+  
+//       if (response.status === 200) {
+//         return response.data;
+//       } else {
+//         throw new Error('Failed to update profile');
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       throw error;
+//     }
+//   };
+
+
+export const updateUserProfile = async (token, userId, updateData) => {
+  try {
+    const response = await axios.put(`${url}user/users/${userId}`, updateData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Failed to update profile');
+    }
+  } catch (error) {
+    console.error('API call error:', error);
+    throw error;
+  }
+};
