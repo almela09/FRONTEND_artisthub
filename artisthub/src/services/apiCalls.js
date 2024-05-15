@@ -52,37 +52,6 @@ export const LoginUser = async (user) => {
     }
   };
 
-// export const updateUserProfile = async (userId, userData, token, imageFile) => {
-//     const formData = new FormData();
-//     formData.append('name', userData.name);
-//     formData.append('nick', userData.nick);
-//     formData.append('biography', userData.biography);
-//     formData.append('socialNetwork', userData.socialNetwork);
-  
-//     if (imageFile) {
-//       formData.append('image', imageFile);
-//     }
-  
-//     try {
-//       const response = await axios.put(`${url}user/${userId}`, formData, {
-//         headers: {
-//           'Authorization': `Bearer ${token}`,
-//           'Content-Type': 'multipart/form-data'
-//         }
-//       });
-  
-//       if (response.status === 200) {
-//         return response.data;
-//       } else {
-//         throw new Error('Failed to update profile');
-//       }
-//     } catch (error) {
-//       console.error(error);
-//       throw error;
-//     }
-//   };
-
-
 export const updateUserProfile = async (token, userId, updateData) => {
   try {
     const response = await axios.put(`${url}user/users/${userId}`, updateData, {
@@ -96,6 +65,26 @@ export const updateUserProfile = async (token, userId, updateData) => {
       return response.data;
     } else {
       throw new Error('Failed to update profile');
+    }
+  } catch (error) {
+    console.error('API call error:', error);
+    throw error;
+  }
+};
+
+export const createNewPublication = async (token, publicationData) => {
+  try {
+    const response = await axios.post(`${url}publication`, publicationData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    if (response.status === 201) {
+      return response.data;
+    } else {
+      throw new Error('Failed to create publication');
     }
   } catch (error) {
     console.error('API call error:', error);
