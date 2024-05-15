@@ -91,3 +91,32 @@ export const createNewPublication = async (token, publicationData) => {
     throw error;
   }
 };
+
+export const getUserPublications = async (token, userId) => {
+  try {
+    const response = await axios.get(`${url}publication/publications/${userId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching publications:', error);
+    throw error;
+  }
+};
+
+
+export const getAllPublications = async (token, userId) => {
+  try {
+    const response = await axios.get(`${url}publication/publications/user/${userId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching publications:', error);
+    throw error;
+  }
+};
