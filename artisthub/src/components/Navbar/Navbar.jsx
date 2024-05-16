@@ -5,9 +5,12 @@ import { deleteToken } from "../../app/slices/userSlice";
 import { decodeToken } from "react-jwt";
 import { CButton } from "../CButton/CButton";
 import "./Navbar.css";
-import { useLocation } from 'react-router-dom'; // Importa useLocation
+import { useLocation } from 'react-router-dom'; 
+import { useState } from "react"; 
+
 
 export const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Línea añadida: Estado para controlar el menú móvil
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation(); // Obtiene la ubicación actual
@@ -18,6 +21,10 @@ export const Navbar = () => {
   const handleLogout = () => {
     dispatch(deleteToken());
     navigate("/");
+  };
+
+  const handleMobileMenuToggle = () => { // Línea añadida: Función para manejar el clic en la hamburguesa
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   // No renderiza el navbar si la ruta es /login o /register
@@ -67,7 +74,7 @@ export const Navbar = () => {
             </ul>
           </div>
           <div className="md:hidden">
-            <button className="outline-none mobile-menu-button">
+            <button onClick={handleMobileMenuToggle} className="outline-none mobile-menu-button"> {/* Línea modificada: Añadir evento onClick */}
               <svg
                 className="w-6 h-6 text-white"
                 fill="none"
@@ -82,7 +89,7 @@ export const Navbar = () => {
             </button>
           </div>
         </div>
-        <div className="mobile-menu hidden md:hidden">
+        <div className={`mobile-menu ${isMobileMenuOpen ? '' : 'hidden'} md:hidden`}> {/* Línea modificada: Clases dinámicas */}
           <ul className="mt-4 space-y-4">
             <li>
               <CButton path="/" title="Home" />
@@ -120,3 +127,5 @@ export const Navbar = () => {
     </header>
   );
 };
+
+export default Navbar;
