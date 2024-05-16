@@ -161,7 +161,7 @@ export const unlikePublication = async (token, id) => {
 };
 export const addComment = async (token, publicationId, content) => {
   try {
-    const response = await axios.post(`${url}comment`, { content, publicationId }, {
+    const response = await axios.post(`${url}comment/`, { content, publicationId }, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -169,6 +169,27 @@ export const addComment = async (token, publicationId, content) => {
     return response.data.comment;
   } catch (error) {
     console.error('Error adding comment:', error);
+    throw error;
+  }
+};
+
+export const getAllComments = async () => {
+  try {
+    const response = await axios.get(`${url}comment/`);
+    return response.data.comments;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    throw error;
+  }
+};
+
+
+export const getPublicationById = async (id) => {
+  try {
+    const response = await axios.get(`${url}publication/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching publication:', error);
     throw error;
   }
 };
