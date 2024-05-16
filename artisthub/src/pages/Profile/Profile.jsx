@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner.jsx';
 import Card from '../../components/Card/Card.jsx';
 import UpButton from '../../components/UpButton/UpButton.jsx';
-
+import './Profile.css';
 const Profile = () => {
   const [userProfile, setProfile] = useState(null);
   const [publications, setPublications] = useState([]);
@@ -92,7 +92,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center">
+    <div className="bg-gray-100 min-h-screen flex flex-col items-center mt-navbar">
       <div className="w-full max-w-6xl mx-auto my-10 bg-white rounded-lg shadow-md p-5">
         {userProfile ? (
           editMode ? (
