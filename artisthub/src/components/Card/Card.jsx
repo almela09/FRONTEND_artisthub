@@ -1,24 +1,21 @@
+
 import React from 'react';
-// export const Card = ({ title, description, imageUrl }) => {
-//     return (
-//       <div className="w-80 bg-white p-3 rounded shadow-md">
-//         <img className="h-52 w-full object-cover rounded" src={imageUrl} alt={title} />
-//         <h3 className="mt-3 text-lg font-semibold">{title}</h3>
-//         <p className="mt-2 text-gray-600">{description}</p>
-//       </div>
-//     );
-//   };
-  
-//   export default Card;
+import { useNavigate } from 'react-router-dom';
 
+const Card = ({ id, title, description, imageUrl }) => {
+  const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate(`/publication/${id}`);
+  };
 
-const Card = ({ imageUrl, title, description }) => {
   return (
-    <div className="w-80 bg-white p-3 rounded shadow-md">
-      <img className="h-52 w-full object-cover rounded" src={imageUrl} alt={title} />
-      <h3 className="mt-3 text-lg font-semibold">{title}</h3>
-      <p className="mt-2 text-gray-600">{description}</p>
+    <div className="card cursor-pointer" onClick={handleClick}>
+      <img src={imageUrl} alt={title} className="w-full h-48 object-cover rounded-t-lg" />
+      <div className="p-4">
+        <h2 className="text-xl font-bold">{title}</h2>
+        <p className="text-gray-600">{description}</p>
+      </div>
     </div>
   );
 };
