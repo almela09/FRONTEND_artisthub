@@ -3,54 +3,54 @@ import axios from 'axios';
 const url = 'http://localhost:4000/api/'
 
 export const registerUserApi = async (user) => {
-    try {
-      const response = await axios.post(`${url}auth/register`, user, {
-        headers: { "Content-Type": "application/json" },
-      });
-      return response.data;
-    } catch (error) {
-      console.log("Error al registrar el usuario", error);
-      throw error;
-    }
+  try {
+    const response = await axios.post(`${url}auth/register`, user, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.data;
+  } catch (error) {
+    console.log("Error al registrar el usuario", error);
+    throw error;
+  }
 };
 
 export const LoginUser = async (user) => {
-    try {
-      const response = await fetch(`${url}auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      })
-      const data = await response.json()
-      /*if (!data.success) {
-        throw new Error(data.message)
-      }*/
-      return data
-    } catch (error) {
-      console.log("Error al loguear el usuario", error)
-      throw error
-    }
-  
+  try {
+    const response = await fetch(`${url}auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    })
+    const data = await response.json()
+    /*if (!data.success) {
+      throw new Error(data.message)
+    }*/
+    return data
+  } catch (error) {
+    console.log("Error al loguear el usuario", error)
+    throw error
   }
 
-  export const getMyProfile = async (token) => {
-    try {
-      const response = await axios.get(`${url}user/profile`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-  
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        throw new Error('Failed to fetch profile');
+}
+
+export const getMyProfile = async (token) => {
+  try {
+    const response = await axios.get(`${url}user/profile`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
-    } catch (error) {
-      console.error(error);
-      throw error;
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Failed to fetch profile');
     }
-  };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
 export const updateUserProfile = async (token, userId, updateData) => {
   try {
@@ -92,7 +92,7 @@ export const createNewPublication = async (token, publicationData) => {
   }
 };
 
-export const getUserPublications = async (token, userId) => {
+export const getUserPublications = async (token, userId) => {       //by ID
   try {
     const response = await axios.get(`${url}publication/publications/${userId}`, {
       headers: {
@@ -106,17 +106,55 @@ export const getUserPublications = async (token, userId) => {
   }
 };
 
-
-export const getAllPublications = async (token, userId) => {
+export const getAllPublications = async (token) => {
   try {
-    const response = await axios.get(`${url}publication/publications/user/${userId}`, {
+    const response = await axios.get(`${url}publication/publications`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data.data; // Accede a 'data' que contiene las publicaciones
+  } catch (error) {
+    console.error('Error fetching publications:', error);
+    throw error;
+  }
+};
+export const likePublication = async (token, id) => {
+  try {
+    const response = await axios.post(`${url}publication/${id}/likes`, {}, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching publications:', error);
+    console.error('Error liking publication:', error);
+    throw error;
+  }
+};
+export const unlikePublication = async (token, id) => {
+  try {
+    const response = await axios.post(`${url}publication/${id}/dislike`, {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error unliking publication:', error);
+    throw error;
+  }
+};
+export const addComment = async (token, publicationId, content) => {
+  try {
+    const response = await axios.post(`${url}comment`, { content, publicationId }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data.comment;
+  } catch (error) {
+    console.error('Error adding comment:', error);
     throw error;
   }
 };
