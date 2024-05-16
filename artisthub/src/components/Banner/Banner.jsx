@@ -1,9 +1,11 @@
 import './Banner.css';
 import React, { useState, useEffect } from 'react';
-
-
+import { useNavigate } from 'react-router-dom';
+import oleo1 from '../../images/oleo1.png';
+import cat from '../../images/cat.png';
 const Banner = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const navigate = useNavigate();
   
     useEffect(() => {
       const interval = setInterval(() => {
@@ -16,23 +18,27 @@ const Banner = () => {
       setCurrentSlide(slide);
     };
   
+    const handleJoinUsClick = () => {
+      navigate('/register');
+    };
+  
     return (
       <div className="sliderAx h-auto">
         <div className={`container mx-auto ${currentSlide === 0 ? '' : 'hidden'}`}>
           <div
             className="bg-cover bg-center h-auto text-white py-24 px-10 object-fill"
-            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1422&q=80)' }}
+            style={{ backgroundImage: `url(${cat})` }}
           >
             <div className="md:w-1/2">
-              <p className="font-bold text-sm uppercase">Services</p>
-              <p className="text-3xl font-bold">Hello world</p>
-              <p className="text-2xl mb-10 leading-none">Carousel with TailwindCSS and React</p>
-              <a
-                href="#"
+              <p className="font-bold text-sm uppercase">Hello Artist!</p>
+              <p className="text-3xl font-bold">Welcome to our great art community</p>
+              <p className="text-2xl mb-10 leading-none">Sign up below</p>
+              <button
+                onClick={handleJoinUsClick}
                 className="bg-purple-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800"
               >
-                Contact us
-              </a>
+                Join Us!
+              </button>
             </div>
           </div>
           <br />
@@ -41,17 +47,17 @@ const Banner = () => {
         <div className={`container mx-auto ${currentSlide === 1 ? '' : 'hidden'}`}>
           <div
             className="bg-cover bg-top h-auto text-white py-24 px-10 object-fill"
-            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1544144433-d50aff500b91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)' }}
+            style={{ backgroundImage: `url(${cat})` }} // Aquí puedes cambiar la imagen por otra si tienes más importadas
           >
-            <p className="font-bold text-sm uppercase">Services</p>
-            <p className="text-3xl font-bold">Hello world</p>
-            <p className="text-2xl mb-10 leading-none">Carousel with TailwindCSS and React</p>
-            <a
-              href="#"
+            <p className="font-bold text-sm uppercase">Artist/Hub</p>
+            <p className="text-3xl font-bold">Meet another artists like you</p>
+            <p className="text-2xl mb-10 leading-none">Found a lot of inspiration!</p>
+            <button
+              onClick={handleJoinUsClick}
               className="bg-purple-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800"
             >
-              Contact us
-            </a>
+              Join Us!
+            </button>
           </div>
           <br />
         </div>
