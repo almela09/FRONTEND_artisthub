@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getMyProfile, updateUserProfile, createNewPublication,getUserPublications,getAllPublications } from '../../services/apiCalls.js'; 
+import { getMyProfile, updateUserProfile, createNewPublication,getUserPublications,getAllPublications, getAllPublicationsByUser } from '../../services/apiCalls.js'; 
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner.jsx';
 import Card from '../../components/Card/Card.jsx';
 import UpButton from '../../components/UpButton/UpButton.jsx';
+
 const Profile = () => {
   const [userProfile, setProfile] = useState(null);
   const [publications, setPublications] = useState([]);
@@ -32,8 +33,8 @@ const Profile = () => {
             avatar: null
           });
 
-          // Fetch user's publications
-          const userPublications = await getAllPublications(token, profileData._id);
+          // Fetch user's publications using the correct function
+          const userPublications = await getAllPublicationsByUser(profileData._id, token);
           setPublications(userPublications);
         } else {
           throw new Error("Failed to load user profile");
