@@ -92,7 +92,7 @@ export const createNewPublication = async (token, publicationData) => {
   }
 };
 
-export const getUserPublications = async (token, userId) => {       //by ID
+export const getUserPublications = async (token, userId) => {       //by ID 1 sola publicación
   try {
     const response = await axios.get(`${url}publication/publications/${userId}`, {
       headers: {
@@ -100,6 +100,20 @@ export const getUserPublications = async (token, userId) => {       //by ID
       }
     });
     return response.data;
+  } catch (error) {
+    console.error('Error fetching publications:', error);
+    throw error;
+  }
+};
+
+export const getAllPublicationsByUser = async (userId, token) => {     //todas las publicaciones de un usuario por id
+  try {
+    const response = await axios.get(`${url}publication/publications/${userId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data; // Accede a los datos devueltos en la respuesta
   } catch (error) {
     console.error('Error fetching publications:', error);
     throw error;
