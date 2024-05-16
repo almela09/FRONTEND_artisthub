@@ -1,0 +1,14 @@
+.mt-navbar {
+    margin-top: 5rem; 
+  }
+
+  .banner-container {
+    width: 100%;
+    height: 400px; 
+    position: relative;
+  }
+  
+  .banner-content {
+    width: 100%;
+    height: 100%;
+  }

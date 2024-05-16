@@ -103,9 +103,7 @@ export const Login = () => {
           </button>
         </form>
         <div className="mt-6 text-blue-500 text-center">
-          <a href="#" className="hover:underline">
-            Sign up Here
-          </a>
+          
         </div>
       </div>
     </div>

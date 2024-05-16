@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import HeartButton from '../HeartButton/HeartButton.jsx';
 import { getPublicationById, likePublication, unlikePublication } from '../../services/apiCalls.js';
 
-
 const PublicationDetail = ({ closeDetail }) => {
   const { id } = useParams();
   const [publication, setPublication] = useState(null);
@@ -77,3 +76,4 @@ const PublicationDetail = ({ closeDetail }) => {
 export default PublicationDetail;
 ///NO TOCAR ESTE CÓDIGO //
 //////////////////////////////////////////////////////////////////////////////////////////////
+
