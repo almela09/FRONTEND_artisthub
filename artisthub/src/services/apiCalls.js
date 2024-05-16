@@ -135,7 +135,7 @@ export const getAllPublications = async (token) => {
 };
 export const likePublication = async (token, id) => {
   try {
-    const response = await axios.post(`${url}publication/${id}/likes`, {}, {
+    const response = await axios.put(`${url}/publication/${id}/likes`, {}, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -146,9 +146,10 @@ export const likePublication = async (token, id) => {
     throw error;
   }
 };
+
 export const unlikePublication = async (token, id) => {
   try {
-    const response = await axios.post(`${url}publication/${id}/dislike`, {}, {
+    const response = await axios.delete(`${url}/publication/${id}/dislike`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }

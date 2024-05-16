@@ -6,7 +6,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        '60': '60', // Añade un valor alto para el z-index del modal
+      },
+    },
   },
   plugins: [],
 }
