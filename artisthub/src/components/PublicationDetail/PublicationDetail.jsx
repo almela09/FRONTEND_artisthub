@@ -80,12 +80,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 import './PublicationDetail.css';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getPublicationById, likePublication, unlikePublication, addComment, getCommentsByPublicationId } from '../../services/apiCalls.js'
 import HeartButton from '../HeartButton/HeartButton.jsx';
-const PublicationDetail = ({ closeDetail }) => {
+const PublicationDetail = ({ closeDetail, publicationIds }) => {
   const { id: publicationId } = useParams();
+  const navigate = useNavigate();
   const [publication, setPublication] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [comment, setComment] = useState(""); 
@@ -98,9 +99,9 @@ const PublicationDetail = ({ closeDetail }) => {
     const fetchPublication = async () => {
       try {
         const data = await getPublicationById(publicationId);
-        console.log('Fetched publication data:', data); // Log publication data
+        console.log('Fetched publication data:', data);
         if (data.likes) {
-          setIsLiked(data.likes.includes(userId)); // Asegúrate de usar userId aquí
+          setIsLiked(data.likes.includes(userId));
         }
         setPublication(data);
       } catch (error) {
@@ -111,7 +112,7 @@ const PublicationDetail = ({ closeDetail }) => {
     const fetchComments = async () => {
       try {
         const data = await getCommentsByPublicationId(publicationId);
-        console.log('Fetched comments data:', data); // Log comments data
+        console.log('Fetched comments data:', data);
         setComments(data);
       } catch (error) {
         console.error('Error fetching comments:', error);
@@ -127,17 +128,17 @@ const PublicationDetail = ({ closeDetail }) => {
 
     try {
       if (isLiked) {
-        console.log('Unliking publication:', publicationId); // Log unliking action
+        console.log('Unliking publication:', publicationId);
         const response = await unlikePublication(token, publicationId);
-        console.log('Unlike response:', response); // Log response from unlike API call
+        console.log('Unlike response:', response);
         setPublication(prev => {
           console.log('Updated publication after unlike:', { ...prev, likes: prev.likes - 1 });
           return { ...prev, likes: prev.likes - 1 };
         });
       } else {
-        console.log('Liking publication:', publicationId); // Log liking action
+        console.log('Liking publication:', publicationId);
         const response = await likePublication(token, publicationId);
-        console.log('Like response:', response); // Log response from like API call
+        console.log('Like response:', response);
         setPublication(prev => {
           console.log('Updated publication after like:', { ...prev, likes: prev.likes + 1 });
           return { ...prev, likes: prev.likes + 1 };
@@ -154,13 +155,29 @@ const PublicationDetail = ({ closeDetail }) => {
     if (!comment.trim()) return; 
 
     try {
-      console.log('Submitting comment:', comment); // Log submitting comment
+      console.log('Submitting comment:', comment);
       const newComment = await addComment(token, publicationId, comment, userId);
-      console.log('New comment:', newComment); // Log new comment
+      console.log('New comment:', newComment);
       setComments(prevComments => [...prevComments, newComment]); 
       setComment(""); 
     } catch (error) {
       console.error('Error adding comment:', error);
+    }
+  };
+
+  const handlePreviousClick = () => {
+    if (!publicationIds) return;
+    const currentIndex = publicationIds.indexOf(publicationId);
+    if (currentIndex > 0) {
+      navigate(`/publication/${publicationIds[currentIndex - 1]}`);
+    }
+  };
+
+  const handleNextClick = () => {
+    if (!publicationIds) return;
+    const currentIndex = publicationIds.indexOf(publicationId);
+    if (currentIndex < publicationIds.length - 1) {
+      navigate(`/publication/${publicationIds[currentIndex + 1]}`);
     }
   };
 
@@ -174,6 +191,22 @@ const PublicationDetail = ({ closeDetail }) => {
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <button
+          onClick={handlePreviousClick}
+          className="modal-nav-button absolute top-1/2 left-0 transform -translate-y-1/2 bg-white text-black rounded-full p-1 shadow"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          onClick={handleNextClick}
+          className="modal-nav-button absolute top-1/2 right-0 transform -translate-y-1/2 bg-white text-black rounded-full p-1 shadow"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
           </svg>
         </button>
         <div className="w-full md:w-2/3">
