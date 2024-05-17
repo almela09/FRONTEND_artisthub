@@ -90,7 +90,7 @@ const PublicationDetail = ({ closeDetail }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [comment, setComment] = useState(""); 
   const [comments, setComments] = useState([]); 
-  const [isCommentsVisible, setIsCommentsVisible] = useState(false); 
+  const [isCommentsVisible, setIsCommentsVisible] = useState(true); 
   const token = useSelector((state) => state.user.token);
   const userId = useSelector((state) => state.user.userId);
 
@@ -166,58 +166,55 @@ const PublicationDetail = ({ closeDetail }) => {
 
   return (
     !publication ? <div>Loading...</div> :
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="modal-overlay fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center">
+      <div className="modal-content bg-white rounded-lg max-w-4xl w-full mx-4 md:mx-0 md:flex relative">
         <button
           onClick={closeDetail}
-          className="modal-close-button"
+          className="modal-close-button absolute top-0 right-0 mt-2 mr-2 text-black bg-white rounded-full p-1 shadow"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        <img src={publication.image} alt={publication.title} className="w-full h-auto rounded-t-lg" />
-        <div className="p-4">
-          <h2 className="text-2xl font-bold">{publication.title}</h2>
-          <p className="text-gray-600 mt-2">{publication.text}</p>
-          <p className="mt-2 text-gray-800">By {publication.user.name}</p>
+        <div className="w-full md:w-2/3">
+          <img src={publication.image} alt={publication.title} className="w-full h-full object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none" />
+        </div>
+        <div className="w-full md:w-1/3 p-4 flex flex-col justify-between">
+          <div>
+            <h2 className="text-2xl font-bold">{publication.title}</h2>
+            <p className="text-gray-600 mt-2">{publication.text}</p>
+            <p className="mt-2 text-gray-800">By {publication.user.name}</p>
+          </div>
           <div className="mt-4 flex items-center">
             <HeartButton isLiked={isLiked} onClick={handleLikeClick} />
-            <span className="ml-2">{publication.likes ? publication.likes.length : 0} likes</span> {/* Usar publication.likes.length */}
+            <span className="ml-2">{publication.likes ? publication.likes.length : 0} likes</span>
           </div>
-          <div className="comment-section">
-            <div className="comment-toggle" onClick={() => setIsCommentsVisible(!isCommentsVisible)}>
-              {isCommentsVisible ? 'Hide Comments' : 'Show Comments'}
-            </div>
-            {isCommentsVisible && (
-              <div>
-                <form onSubmit={handleCommentSubmit} className="comment-form">
-                  <input
-                    type="text"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    placeholder="Add a comment"
-                    className="p-2 border border-gray-300 rounded"
-                  />
-                  <button type="submit" className="p-2 bg-blue-500 text-white rounded">Submit</button>
-                </form>
-                <div className="comment-list">
-                  <h3 className="text-lg font-bold mt-4">Comments</h3>
-                  {comments.length > 0 ? (
-                    <ul>
-                      {comments.map((comment, index) => (
-                        <li key={index} className="mt-2">
-                          <p>{comment.content}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>No comments yet.</p>
-                  )}
-                </div>
-              </div>
+          <div className="comment-section mt-4 flex-1 overflow-y-auto hide-scrollbar">
+            <h3 className="text-lg font-bold">Comments</h3>
+            {comments.length > 0 ? (
+              <ul>
+                {comments.map((comment, index) => (
+                  <li key={index} className="mt-2">
+                    <p>{comment.content}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No comments yet.</p>
             )}
           </div>
+          <form onSubmit={handleCommentSubmit} className="mt-4">
+            <textarea
+              type="text"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Add a comment"
+              className="w-full p-2 border border-gray-300 rounded resize-none max-h-40"
+              rows="1"
+              style={{ maxHeight: '10rem' }}
+            />
+            <button type="submit" className="w-full mt-2 p-2 bg-blue-500 text-white rounded">Submit</button>
+          </form>
         </div>
       </div>
     </div>

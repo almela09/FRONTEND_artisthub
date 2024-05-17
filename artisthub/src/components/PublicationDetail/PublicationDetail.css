@@ -123,3 +123,12 @@
   .comment-section.visible {
     max-height: 1000px; /* Ajusta este valor según sea necesario */
   }  
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
