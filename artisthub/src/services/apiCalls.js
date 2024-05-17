@@ -160,29 +160,80 @@ export const unlikePublication = async (token, id) => {
     throw error;
   }
 };
+// export const addComment = async (token, publicationId,userId, content) => {  //AÑADIDO userId
+//   try {
+//     console.log('Data being sent:', { content, publicationId, userId }); 
+//     const response = await axios.post(`${url}comment/`, { content, publicationId, userId }, {
+//       headers: {
+//         'Authorization': `Bearer ${token}`
+//       }
+//     });
+//     return response.data.comment;
+//   } catch (error) {
+//     console.error('Error adding comment:', error);
+//     throw error;
+//   }
+// };
+
+// export const createAndLogComment = async () => {
+//   const token = 'your_jwt_token';
+//   const content = 'Este es mi comentario';
+//   const publicationId = '6644cd1a1f85fc62e0087eb4';
+//   const userId = '663b95efdc35bbb8a2f0f56c';
+
+//   console.log('Data being sent:', { token, publicationId, userId, content });
+
+//   try {
+//     const response = await axios.post(`${url}comment/`, { content, publicationId, userId }, {
+//       headers: {
+//         'Authorization': `Bearer ${token}`
+//       }
+//     });
+
+//     const comment = response.data.comment;
+    
+//     console.log('Comment created:', comment);
+//   } catch (error) {
+//     console.error('Error creating comment:', error);
+//   }
+// };
 export const addComment = async (token, publicationId, content) => {
   try {
-    const response = await axios.post(`${url}/comment/`, { content, publicationId }, {
+    const response = await axios.post(`${url}comment/`, {
+      content,
+      publicationId,
+    }, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
-    return response.data.comment;
+    return response.data;
   } catch (error) {
-    console.error('Error adding comment:', error);
-    throw error;
+    throw new Error(`Error adding comment: ${error.response ? error.response.data.message : error.message}`);
   }
 };
 
 export const getCommentsByPublicationId = async (publicationId) => {
   try {
-    const response = await axios.get(`${url}/comment/${publicationId}/comments`);
+    const response = await axios.get(`${url}comment/${publicationId}`);
+    console.log('Response data:', response.data); 
     return response.data;
   } catch (error) {
     console.error('Error fetching comments:', error);
+    console.log('Error data:', error.response.data); 
     throw error;
   }
 };
+
+// export const getAllComments = async () => {
+//   try {
+//     const response = await axios.get(`${url}comment/`);
+//     return response.data.comments;
+//   } catch (error) {
+//     console.error('Error fetching comments:', error);
+//     throw error;
+//   }
+// };
 export const getAllComments = async () => {
   try {
     const response = await axios.get(`${url}comment/`);
