@@ -5,6 +5,7 @@ import Profile from "../Profile/Profile";
 import CreatePublication from "../../components/CreatePublication/CreatePublication";
 import PublicationDetail from "../../components/PublicationDetail/PublicationDetail.jsx";
 import Home from "../Home/Home.jsx";
+import Admin from "../Admin/Admin";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 
@@ -34,6 +35,7 @@ export const Body = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/create-publication" element={<CreatePublication />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<Admin />} />
         <Route
           path="/publication/:id"
           element={

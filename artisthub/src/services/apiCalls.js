@@ -32,7 +32,24 @@ export const LoginUser = async (user) => {
   }
 
 }
+export const getAllUsers = async (token) => {
+  try {
+    const response = await axios.get(`${url}/user`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
 
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Failed to fetch users');
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 export const getMyProfile = async (token) => {
   try {
     const response = await axios.get(`${url}user/profile`, {
@@ -160,43 +177,7 @@ export const unlikePublication = async (token, id) => {
     throw error;
   }
 };
-// export const addComment = async (token, publicationId,userId, content) => {  //AÑADIDO userId
-//   try {
-//     console.log('Data being sent:', { content, publicationId, userId }); 
-//     const response = await axios.post(`${url}comment/`, { content, publicationId, userId }, {
-//       headers: {
-//         'Authorization': `Bearer ${token}`
-//       }
-//     });
-//     return response.data.comment;
-//   } catch (error) {
-//     console.error('Error adding comment:', error);
-//     throw error;
-//   }
-// };
 
-// export const createAndLogComment = async () => {
-//   const token = 'your_jwt_token';
-//   const content = 'Este es mi comentario';
-//   const publicationId = '6644cd1a1f85fc62e0087eb4';
-//   const userId = '663b95efdc35bbb8a2f0f56c';
-
-//   console.log('Data being sent:', { token, publicationId, userId, content });
-
-//   try {
-//     const response = await axios.post(`${url}comment/`, { content, publicationId, userId }, {
-//       headers: {
-//         'Authorization': `Bearer ${token}`
-//       }
-//     });
-
-//     const comment = response.data.comment;
-    
-//     console.log('Comment created:', comment);
-//   } catch (error) {
-//     console.error('Error creating comment:', error);
-//   }
-// };
 export const addComment = async (token, publicationId, content) => {
   try {
     const response = await axios.post(`${url}comment/`, {
@@ -216,24 +197,15 @@ export const addComment = async (token, publicationId, content) => {
 export const getCommentsByPublicationId = async (publicationId) => {
   try {
     const response = await axios.get(`${url}comment/${publicationId}`);
-    console.log('Response data:', response.data); 
+    console.log('Response data:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching comments:', error);
-    console.log('Error data:', error.response.data); 
+    console.log('Error data:', error.response.data);
     throw error;
   }
 };
 
-// export const getAllComments = async () => {
-//   try {
-//     const response = await axios.get(`${url}comment/`);
-//     return response.data.comments;
-//   } catch (error) {
-//     console.error('Error fetching comments:', error);
-//     throw error;
-//   }
-// };
 export const getAllComments = async () => {
   try {
     const response = await axios.get(`${url}comment/`);
@@ -244,7 +216,6 @@ export const getAllComments = async () => {
   }
 };
 
-
 export const getPublicationById = async (id) => {
   try {
     const response = await axios.get(`${url}publication/${id}`);
@@ -254,3 +225,4 @@ export const getPublicationById = async (id) => {
     throw error;
   }
 };
+
