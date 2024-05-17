@@ -50,6 +50,24 @@ export const getAllUsers = async (token) => {
     throw error;
   }
 };
+export const deleteUser = async (token, userId) => {
+  try {
+    const response = await axios.delete(`${url}/user/${userId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Failed to delete user');
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 export const getMyProfile = async (token) => {
   try {
     const response = await axios.get(`${url}user/profile`, {
