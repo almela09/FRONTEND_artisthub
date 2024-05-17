@@ -85,7 +85,7 @@ import { useSelector } from 'react-redux';
 import { getPublicationById, likePublication, unlikePublication, addComment, getCommentsByPublicationId } from '../../services/apiCalls.js'
 import HeartButton from '../HeartButton/HeartButton.jsx';
 const PublicationDetail = ({ closeDetail }) => {
-  const { id: publicationId } = useParams(); // Obtén publicationId desde useParams
+  const { id: publicationId } = useParams();
   const [publication, setPublication] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [comment, setComment] = useState(""); 
@@ -97,9 +97,10 @@ const PublicationDetail = ({ closeDetail }) => {
   useEffect(() => {
     const fetchPublication = async () => {
       try {
-        const data = await getPublicationById(publicationId); // Usa publicationId desde useParams
+        const data = await getPublicationById(publicationId);
+        console.log('Fetched publication data:', data); // Log publication data
         if (data.likes) {
-          setIsLiked(data.likes.includes(token));
+          setIsLiked(data.likes.includes(userId)); // Asegúrate de usar userId aquí
         }
         setPublication(data);
       } catch (error) {
@@ -109,7 +110,8 @@ const PublicationDetail = ({ closeDetail }) => {
 
     const fetchComments = async () => {
       try {
-        const data = await getCommentsByPublicationId(publicationId); // Usa publicationId desde useParams
+        const data = await getCommentsByPublicationId(publicationId);
+        console.log('Fetched comments data:', data); // Log comments data
         setComments(data);
       } catch (error) {
         console.error('Error fetching comments:', error);
@@ -118,18 +120,28 @@ const PublicationDetail = ({ closeDetail }) => {
 
     fetchPublication();
     fetchComments();
-  }, [publicationId, token]);
+  }, [publicationId, userId]);
 
   const handleLikeClick = async () => {
     if (!publication) return;
 
     try {
       if (isLiked) {
-        await unlikePublication(token, publicationId); // Usa publicationId desde useParams
-        setPublication(prev => ({ ...prev, likes: prev.likes - 1 }));
+        console.log('Unliking publication:', publicationId); // Log unliking action
+        const response = await unlikePublication(token, publicationId);
+        console.log('Unlike response:', response); // Log response from unlike API call
+        setPublication(prev => {
+          console.log('Updated publication after unlike:', { ...prev, likes: prev.likes - 1 });
+          return { ...prev, likes: prev.likes - 1 };
+        });
       } else {
-        await likePublication(token, publicationId); // Usa publicationId desde useParams
-        setPublication(prev => ({ ...prev, likes: prev.likes + 1 }));
+        console.log('Liking publication:', publicationId); // Log liking action
+        const response = await likePublication(token, publicationId);
+        console.log('Like response:', response); // Log response from like API call
+        setPublication(prev => {
+          console.log('Updated publication after like:', { ...prev, likes: prev.likes + 1 });
+          return { ...prev, likes: prev.likes + 1 };
+        });
       }
       setIsLiked(!isLiked);
     } catch (error) {
@@ -142,8 +154,9 @@ const PublicationDetail = ({ closeDetail }) => {
     if (!comment.trim()) return; 
 
     try {
-      console.log('Submitting comment:', comment);
-      const newComment = await addComment(token, publicationId, comment, userId); // Usa publicationId desde useParams
+      console.log('Submitting comment:', comment); // Log submitting comment
+      const newComment = await addComment(token, publicationId, comment, userId);
+      console.log('New comment:', newComment); // Log new comment
       setComments(prevComments => [...prevComments, newComment]); 
       setComment(""); 
     } catch (error) {
@@ -170,7 +183,7 @@ const PublicationDetail = ({ closeDetail }) => {
           <p className="mt-2 text-gray-800">By {publication.user.name}</p>
           <div className="mt-4 flex items-center">
             <HeartButton isLiked={isLiked} onClick={handleLikeClick} />
-            <span className="ml-2">{publication.likes} likes</span>
+            <span className="ml-2">{publication.likes ? publication.likes.length : 0} likes</span> {/* Usar publication.likes.length */}
           </div>
           <div className="comment-section">
             <div className="comment-toggle" onClick={() => setIsCommentsVisible(!isCommentsVisible)}>
