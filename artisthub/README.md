@@ -17,6 +17,8 @@ Proyecto final bootcamp Academia GeeksHubs:
 
 El objetivo de Artist/Hub es ofrecer una plataforma estimulante donde artistas emergentes y ya establecidos puedan mostrar sus obras, interactuar con otros artistas y participar de la comunidad creativa.
 
+Link al Backend: https://github.com/almela09/backend_artisthub
+
 #### Stack utilizado 🔩
 ![React](https://img.shields.io/badge/React-%2361DAFB?style=for-the-badge&logo=react&logoColor=black)
 
