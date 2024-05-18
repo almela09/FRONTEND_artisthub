@@ -7,8 +7,7 @@ import PublicationDetail from "../../components/PublicationDetail/PublicationDet
 import Home from "../Home/Home.jsx";
 import Admin from "../Admin/Admin";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
 
 export const Body = () => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);

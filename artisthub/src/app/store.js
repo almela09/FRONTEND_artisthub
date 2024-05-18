@@ -2,8 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
-
-//todo esto son LIBRERIAS.
 import storage from "redux-persist/lib/storage";
 import userSlice from "./slices/userSlice";
 import persistStore from "redux-persist/es/persistStore";
@@ -11,7 +9,6 @@ import persistStore from "redux-persist/es/persistStore";
 
 const reducers = combineReducers({
     user: userSlice,
-
 });
 const persistConfig = {
     key: "root",

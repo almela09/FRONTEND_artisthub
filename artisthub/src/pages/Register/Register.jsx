@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUserApi } from "../../services/apiCalls.js"; 
+import { registerUserApi } from "../../services/apiCalls.js";
 import Spinner from "../../components/Spinner/Spinner.jsx";
+import unnamed3 from "../../images/unnamed3.jpg";
 export const Register = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -78,15 +79,14 @@ export const Register = () => {
 
   return (
     <div className="bg-gray-100 flex justify-center items-center h-screen">
-      {/* Left: Image */}
       <div className="w-1/2 h-screen hidden lg:block">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Sandro_Botticelli_066.jpg"
+          src={unnamed3}
           alt="Boticelli Image"
           className="object-cover w-full h-full"
         />
       </div>
-      {/* Right: Register Form */}
+
       <div className="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
         <h1 className="text-2xl font-semibold mb-4">Register</h1>
         <form
@@ -95,7 +95,6 @@ export const Register = () => {
             registerUser();
           }}
         >
-          {/* Email Input */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-600">
               Email
@@ -114,7 +113,7 @@ export const Register = () => {
             />
             <div className="text-red-500">{userError.emailError}</div>
           </div>
-          {/* Name Input */}
+
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-600">
               Name
@@ -133,7 +132,7 @@ export const Register = () => {
             />
             <div className="text-red-500">{userError.nameError}</div>
           </div>
-          {/* Nick Input */}
+
           <div className="mb-4">
             <label htmlFor="nick" className="block text-gray-600">
               Nick
@@ -152,7 +151,7 @@ export const Register = () => {
             />
             <div className="text-red-500">{userError.nickError}</div>
           </div>
-          {/* Password Input */}
+
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-600">
               Password
@@ -171,7 +170,7 @@ export const Register = () => {
             />
             <div className="text-red-500">{userError.passwordError}</div>
           </div>
-          {/* Remember Me Checkbox */}
+
           <div className="mb-4 flex items-center">
             <input
               type="checkbox"
@@ -183,16 +182,16 @@ export const Register = () => {
               Remember Me
             </label>
           </div>
-          {/* Forgot Password Link */}
+
           <div className="mb-6 text-blue-500">
             <a href="#" className="hover:underline">
               Forgot Password?
             </a>
           </div>
-          {/* Register Button */}
+
           <div className="mb-4">
             {isLoading ? (
-              <Spinner /> // Muestra el spinner cuando se está cargando
+              <Spinner />
             ) : (
               <button
                 type="submit"
@@ -203,7 +202,7 @@ export const Register = () => {
             )}
             <div className="text-red-500">{msgError}</div>
           </div>
-          {/* Sign up Link */}
+
           <div className="mt-6 text-blue-500 text-center">
             <a href="/login" className="hover:underline">
               Sign up Here

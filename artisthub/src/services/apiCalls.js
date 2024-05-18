@@ -127,7 +127,7 @@ export const createNewPublication = async (token, publicationData) => {
   }
 };
 
-export const getUserPublications = async (token, userId) => {       //by ID 1 sola publicación
+export const getUserPublications = async (token, userId) => {       
   try {
     const response = await axios.get(`${url}publication/publications/${userId}`, {
       headers: {
@@ -243,4 +243,26 @@ export const getPublicationById = async (id) => {
     throw error;
   }
 };
+
+export const deletePublication = async (token, publicationId) => {
+  const response = await fetch(`/api/publications/${publicationId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  return response.json();
+};
+export const updatePublication = async (token, publicationId, updateData) => {
+  const response = await fetch(`/api/publications/${publicationId}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
+    body: updateData
+  });
+  return response.json();
+};
+
+
 

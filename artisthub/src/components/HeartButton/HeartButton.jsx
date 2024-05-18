@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const HeartButton = ({ isLiked, onClick }) => {
   return (
@@ -39,5 +39,3 @@ const HeartButton = ({ isLiked, onClick }) => {
 };
 
 export default HeartButton;
-
-
