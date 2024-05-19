@@ -31,7 +31,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const profileData = await getMyProfile(token);
-        console.log("Fetched Profile Data:", profileData);
+        
         if (profileData.email) {
           setProfile(profileData);
           setFormData({
@@ -50,14 +50,14 @@ const Profile = () => {
           throw new Error("Failed to load user profile");
         }
       } catch (error) {
-        console.error("Error fetching profile:", error.message);
+        throw new Error('Error al obtener el perfil: ' + error.message);
       }
     };
 
     if (token) {
       fetchProfile();
     } else {
-      console.error("No authentication token found.");
+      throw new Error('No se encontró el token de autenticación.');
     }
   }, [token]);
 
@@ -82,11 +82,6 @@ const Profile = () => {
         updateData.append("image", formData.avatar);
       }
 
-      console.log("FormData to be sent:");
-      for (let pair of updateData.entries()) {
-        console.log(pair[0] + ": " + pair[1]);
-      }
-
       if (userProfile && userProfile._id) {
         const userId = userProfile._id;
         console.log("User ID:", userId);
@@ -98,7 +93,7 @@ const Profile = () => {
         throw new Error("User ID is not available");
       }
     } catch (error) {
-      console.error("Update failed:", error);
+      throw new Error('Update failed: ' + error.message);
     } finally {
       setLoading(false); 
     }

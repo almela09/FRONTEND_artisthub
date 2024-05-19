@@ -9,8 +9,8 @@ export const registerUserApi = async (user) => {
     });
     return response.data;
   } catch (error) {
-    console.log("Error al registrar el usuario", error);
-    throw error;
+    throw new Error("Error al registrar el usuario: " + error.message);
+    
   }
 };
 
@@ -22,13 +22,10 @@ export const LoginUser = async (user) => {
       body: JSON.stringify(user),
     })
     const data = await response.json()
-    /*if (!data.success) {
-      throw new Error(data.message)
-    }*/
+    
     return data
   } catch (error) {
-    console.log("Error al loguear el usuario", error)
-    throw error
+    throw new Error("Error al loguear el usuario: " + error.message);
   }
 
 }
@@ -46,8 +43,7 @@ export const getAllUsers = async (token) => {
       throw new Error('Failed to fetch users');
     }
   } catch (error) {
-    console.error(error);
-    throw error;
+    throw new Error('Error al obtener los usuarios: ' + error.message);
   }
 };
 export const deleteUser = async (token, userId) => {
@@ -82,8 +78,7 @@ export const getMyProfile = async (token) => {
       throw new Error('Failed to fetch profile');
     }
   } catch (error) {
-    console.error(error);
-    throw error;
+    throw new Error('Error al obtener el perfil: ' + error.message);
   }
 };
 
@@ -102,8 +97,7 @@ export const updateUserProfile = async (token, userId, updateData) => {
       throw new Error('Failed to update profile');
     }
   } catch (error) {
-    console.error('API call error:', error);
-    throw error;
+    throw new Error('Error al actualizar el perfil: ' + error.message);
   }
 };
 
@@ -122,8 +116,7 @@ export const createNewPublication = async (token, publicationData) => {
       throw new Error('Failed to create publication');
     }
   } catch (error) {
-    console.error('API call error:', error);
-    throw error;
+    throw new Error('Error al crear la publicación: ' + error.message);
   }
 };
 
@@ -136,22 +129,20 @@ export const getUserPublications = async (token, userId) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching publications:', error);
-    throw error;
+    throw new Error('Error al obtener las publicaciones: ' + error.message);
   }
 };
 
-export const getAllPublicationsByUser = async (userId, token) => {     //todas las publicaciones de un usuario por id
+export const getAllPublicationsByUser = async (userId, token) => {     
   try {
     const response = await axios.get(`${url}publication/publications/${userId}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
-    return response.data; // Accede a los datos devueltos en la respuesta
+    return response.data; 
   } catch (error) {
-    console.error('Error fetching publications:', error);
-    throw error;
+    throw new Error('Error al obtener las publicaciones: ' + error.message);
   }
 };
 
@@ -162,10 +153,10 @@ export const getAllPublications = async (token) => {
         'Authorization': `Bearer ${token}`
       }
     });
-    return response.data.data; // Accede a 'data' que contiene las publicaciones
+    return response.data.data; 
   } catch (error) {
-    console.error('Error fetching publications:', error);
-    throw error;
+  
+    throw new Error('Error al obtener todas las publicaciones: ' + error.message);
   }
 };
 export const likePublication = async (token, id) => {
@@ -177,8 +168,7 @@ export const likePublication = async (token, id) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error liking publication:', error);
-    throw error;
+    throw new Error('Error al dar like a la publicación: ' + error.message);
   }
 };
 
@@ -191,8 +181,7 @@ export const unlikePublication = async (token, id) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error unliking publication:', error);
-    throw error;
+    throw new Error('Error al quitar el like a la publicación: ' + error.message);
   }
 };
 
@@ -215,12 +204,11 @@ export const addComment = async (token, publicationId, content) => {
 export const getCommentsByPublicationId = async (publicationId) => {
   try {
     const response = await axios.get(`${url}comment/${publicationId}`);
-    console.log('Response data:', response.data);
+    
     return response.data;
   } catch (error) {
-    console.error('Error fetching comments:', error);
-    console.log('Error data:', error.response.data);
-    throw error;
+    
+    throw new Error('Error al obtener los comentarios: ' + error.message);
   }
 };
 
@@ -229,8 +217,7 @@ export const getAllComments = async () => {
     const response = await axios.get(`${url}comment/`);
     return response.data.comments;
   } catch (error) {
-    console.error('Error fetching comments:', error);
-    throw error;
+    throw new Error('Error al obtener todos los comentarios: ' + error.message);
   }
 };
 
@@ -239,8 +226,7 @@ export const getPublicationById = async (id) => {
     const response = await axios.get(`${url}publication/${id}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching publication:', error);
-    throw error;
+    throw new Error('Error al obtener la publicación: ' + error.message);
   }
 };
 

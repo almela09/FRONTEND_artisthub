@@ -34,11 +34,11 @@ const CreatePublication = () => {
       }
 
       const response = await createNewPublication(token, publicationData);
-      console.log("Publication created:", response);
+      
       setLoading(false);
       navigate("/profile"); 
     } catch (error) {
-      console.error("Error creating publication:", error);
+      
       setLoading(false);
     }
   };

@@ -12,7 +12,7 @@ const Admin = () => {
         const data = await getAllUsers(token);
         setUsers(data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        throw new Error('Error al obtener los usuarios: ' + error.message);
       }
     };
 
@@ -24,7 +24,7 @@ const Admin = () => {
       await deleteUser(token, userId);
       setUsers(users.filter((user) => user._id !== userId));
     } catch (error) {
-      console.error("Error deleting user:", error);
+      throw new Error('Error al eliminar el usuario: ' + error.message);
     }
   };
 

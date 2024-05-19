@@ -25,23 +25,23 @@ const PublicationDetail = ({ closeDetail, publicationIds }) => {
     const fetchPublication = async () => {
       try {
         const data = await getPublicationById(publicationId);
-        console.log("Fetched publication data:", data);
+        
         if (data.likes) {
           setIsLiked(data.likes.includes(userId));
         }
         setPublication(data);
       } catch (error) {
-        console.error("Error fetching publication:", error);
+        throw new Error('Error al obtener la publicación: ' + error.message);
       }
     };
 
     const fetchComments = async () => {
       try {
         const data = await getCommentsByPublicationId(publicationId);
-        console.log("Fetched comments data:", data);
+        
         setComments(data);
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        throw new Error('Error al obtener los comentarios: ' + error.message);
       }
     };
 
@@ -54,7 +54,6 @@ const PublicationDetail = ({ closeDetail, publicationIds }) => {
 
     try {
       if (isLiked) {
-        console.log("Unliking publication:", publicationId);
         const response = await unlikePublication(token, publicationId);
         console.log("Unlike response:", response);
         setPublication((prev) => {
@@ -78,7 +77,7 @@ const PublicationDetail = ({ closeDetail, publicationIds }) => {
       }
       setIsLiked(!isLiked);
     } catch (error) {
-      console.error("Error toggling like:", error);
+       throw new Error('Error al cambiar el estado de "like": ' + error.message);
     }
   };
 
@@ -93,13 +92,11 @@ const PublicationDetail = ({ closeDetail, publicationIds }) => {
     };
 
     try {
-      console.log("Submitting comment:", comment);
-
+      
       setComments((prevComments) => [...prevComments, newComment]);
       setComment("");
 
       const response = await addComment(token, publicationId, comment, userId);
-      console.log("New comment response:", response);
     } catch (error) {
       console.error("Error adding comment:", error);
 
